@@ -1,0 +1,33 @@
+#include <unordered_map>
+
+using namespace std;
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Hash Table to store the number and its index
+        unordered_map<int, int> numsIndex;
+        vector<int> res;
+        
+        // Go through the nums
+        for (int i = 0; i < nums.size(); i++) {
+            int num = nums[i];
+            // Calculated its needed number
+            int numNeed  = target - num;
+            
+            // If the needed number is existed
+            auto existed = numsIndex.find(numNeed);
+            if (existed != numsIndex.end()) {
+                res.push_back(existed->second);
+                res.push_back(i);
+                break;
+            }
+            // If the needed number is not existed
+            else {
+                numsIndex[num] = i;
+            }   
+        }
+        
+        return res;
+    }
+};
