@@ -1,27 +1,88 @@
 20170720
+1. Two Sum
 	unordered_map:	hash table
 	map:	balanced tree/ red black tree
 	
-	                   | map              | unordered_map
----------------------------------------------------------
-element ordering       | strict weak      | n/a 
-                       |                  |
-common implementation  | balanced tree    | hash table
-                       | or red-black tree|  
-                       |                  |
-search time            | log(n)           | O(1) if there are no hash collisions
-                       |                  | Up to O(n) if there are hash collisions 
-                       |                  | O(n) when hash is the same for any key
-                       |                  |     
-Insertion time         | log(n)+rebalance | Same as search
-                       |                  | 
-Deletion time          | log(n)+rebalance | Same as search
-                       |                  | 
-needs comparators      | only operator <  | only operator ==
-                       |                  |
-needs hash function    | no               | yes
-                       |                  |
-common use case        | when good hash is| In most other cases. 
-                       | not possible or  | 
-                       | too slow. Or when|
-                       | order is required| 
+	unordered_map<,> hash;
+	hash.find() == hash.end() // if not found
+	
+	CONSIDER the difference between index and the returned position.
+	
+	
+	
+						   | map              | unordered_map
+	---------------------------------------------------------
+	element ordering       | strict weak      | n/a 
+						   |                  |
+	common implementation  | balanced tree    | hash table
+						   | or red-black tree|  
+						   |                  |
+	search time            | log(n)           | O(1) if there are no hash collisions
+						   |                  | Up to O(n) if there are hash collisions 
+						   |                  | O(n) when hash is the same for any key
+						   |                  |     
+	Insertion time         | log(n)+rebalance | Same as search
+						   |                  | 
+	Deletion time          | log(n)+rebalance | Same as search
+						   |                  | 
+	needs comparators      | only operator <  | only operator ==
+						   |                  |
+	needs hash function    | no               | yes
+						   |                  |
+	common use case        | when good hash is| In most other cases. 
+						   | not possible or  | 
+						   | too slow. Or when|
+						   | order is required| 
+						   
+
+20. Valid Parentheses						   
+	Return Void
+		pop in queue and stack
+		pop_back in vector
+		pop_back/pop_front in list
+
+	list:
+		begin		end
+		front		back
+		pop_front	pop_back
+		push_front	push_back
+	vector:
+		begin		end
+		front		back
+					pop_back
+					push_back
+	queue:
+		front		back
+					pop
+		push
+	stack:
+		top
+		pop
+		push
+		
+		
+	switch (c) {
+		case '(':	break;
+		case '[':	break;
+		default: ;
+	}
+	
+	
+21. Merge Two Sorted Lists
+	
+	Single Link List Struct
+	struct ListNode {
+		int val;
+		ListNode *next;
+	}
+	
+	Check the head is NULL or not
+	
+	The result link list head should be initialize
+		resHead;
+		it;
+		list1;
+		list2;
+		
+		
+	
