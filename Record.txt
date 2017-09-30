@@ -84,5 +84,18 @@
 		list1;
 		list2;
 		
+	Consider recursive for link list
+	
+
+53. Maximum Subarray
+	dynamic algorithm
+	largest sum + contiguous subarray
+	-> previous array disadvantage -> reset
+	
+
+70. Climbing Stairs
+	recursive method -> re-implement in loop
+	save time
+		
 		
 	

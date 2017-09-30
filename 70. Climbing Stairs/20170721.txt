@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        if ( n == 1 )
+            return 1;
+        else if ( n == 2 )
+            return 2;
+        else
+            return climbStairs(n-1) + climbStairs(n-2);
+    }
+};
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        // n == 1, ways = 1;
+        // n == 2, ways = 2;
+        // n == 3, ways = 3;
+        // n == 4, ways = 5;
+        // n == 5, ways = 8;
+        // n == 6, ways = 13;
+        if ( n == 1)
+            return 1;
+        else if ( n == 2)
+            return 2;
+        else {
+            vector<int> ways;
+            ways.push_back(1);
+            ways.push_back(2);
+            for (int i = 2; i < n; i++) {
+                ways.push_back(ways[i-2] + ways[i-1]);
+            }
+            return ways[n-1];
+        }
+    }
+};

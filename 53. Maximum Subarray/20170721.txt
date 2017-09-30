@@ -1,0 +1,54 @@
+// Exhaustive for all possible sub-array
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        // Largest Sum
+        int largest = nums[0];
+        
+        // SubArray length from 1 to n
+        
+        // Length = 1
+        vector<int> newNums;
+        for (int i = 0; i < nums.size(); i++) {
+            newNums.push_back(nums[i]);
+            if (nums[i] > largest)
+                largest = nums[i];
+        }
+
+        // Length from 2 to n
+        int length = 1; 
+        while (length < nums.size()) {
+            for (int i = 0; i < newNums.size() - 1; i++) {
+                int newNum = newNums[i] + nums[length+i];
+                newNums[i] = newNum;
+                if (newNum > largest)
+                    largest = newNum;
+            }
+            newNums.pop_back();
+            length++;   
+        }
+        
+        return largest;
+    }
+};
+
+
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        // Largest Sum
+        int largest = nums[0];
+        int sum = 0;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];
+            if (sum > largest)
+                largest = sum;
+            // If previous sum is smaller than 0, reset/break
+            if (sum < 0)   
+                sum = 0;
+        }
+        return largest;
+    }
+};
