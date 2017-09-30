@@ -44,20 +44,20 @@
 	list:
 		begin		end
 		front		back
-		pop_front	pop_back
+		pop_front	pop_back	(return void)
 		push_front	push_back
 	vector:
 		begin		end
 		front		back
-					pop_back
+					pop_back	(return void)
 					push_back
 	queue:
 		front		back
-					pop
+					pop			(return void)
 		push
 	stack:
 		top
-		pop
+		pop						(return void)
 		push
 		
 		
@@ -96,6 +96,45 @@
 70. Climbing Stairs
 	recursive method -> re-implement in loop
 	save time
+	
+	
+101. Symmetric Tree
+	Deepth First Search (DFS):
+		check
+		left
+		right
+		
+	Breadth First Search (BFS):
+		queue to store
+	
+	Instead of check two children of root, push root twice
+	
+	Recursive:
+		right->left child == left->right child
+		return (val & r->l & l->r)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 		
 		
 	

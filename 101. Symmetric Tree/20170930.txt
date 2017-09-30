@@ -1,0 +1,126 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+#include <list>
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        list<TreeNode*> nodes;
+        if (root == NULL)
+            return true;
+        if (root->left != NULL)
+            nodes.push_back(root->left);
+        if (root->right != NULL)
+            nodes.push_back(root->right);
+        
+        while (!nodes.empty()) {
+            TreeNode* l = nodes.front(); 
+            nodes.pop_front();
+            if (nodes.empty())
+                return false;
+            TreeNode* r = nodes.back();
+            nodes.pop_back();
+            if (l->val != r->val)
+                return false;
+            
+            if (l->right != NULL && r->left != NULL) {
+                nodes.push_front(l->right);
+                nodes.push_back(r->left);
+            }
+            else if (l->right == NULL && r->left == NULL) {
+                
+            }
+            else
+                return false;
+                
+            if (l->left != NULL && r->right != NULL) {
+                nodes.push_front(l->left);
+                nodes.push_back(r->right);
+            }
+            else if (l->left == NULL && r->right == NULL) {
+                
+            }
+            else
+                return false;
+        }
+        
+        return true;
+    }
+};
+
+
+//iteration
+#include <list>
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        list<TreeNode*> nodes;
+        if (root == NULL)
+            return true;
+        else {
+            nodes.push_back(root);
+            nodes.push_back(root);
+        }
+        
+        while (!nodes.empty()) {
+            TreeNode* l = nodes.front(); 
+            nodes.pop_front();
+            if (nodes.empty())
+                return false;
+            TreeNode* r = nodes.back();
+            nodes.pop_back();
+            if (l->val != r->val)
+                return false;
+            
+            if (l->right != NULL && r->left != NULL) {
+                nodes.push_front(l->right);
+                nodes.push_back(r->left);
+            }
+            else if (l->right == NULL && r->left == NULL) {
+                
+            }
+            else
+                return false;
+                
+            if (l->left != NULL && r->right != NULL) {
+                nodes.push_front(l->left);
+                nodes.push_back(r->right);
+            }
+            else if (l->left == NULL && r->right == NULL) {
+                
+            }
+            else
+                return false;
+        }
+        
+        return true;
+    }
+};
+
+
+// Recursive
+class Solution {
+public:
+    bool isMirror (TreeNode* l, TreeNode* r) {
+        if (l == NULL && r == NULL)
+            return true;
+        else if (l != NULL && r != NULL) {
+            return ( l->val == r->val && isMirror(l->right, r->left) && isMirror(l->left, r->right) );
+        }
+        // l and r, NULL and !NULL
+        else
+            return false;
+    }
+        
+    bool isSymmetric(TreeNode* root) {
+        if (root == NULL)
+            return true;
+        return isMirror (root, root);
+    }
+};
