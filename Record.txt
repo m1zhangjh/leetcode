@@ -128,7 +128,13 @@
 	Each var - the min before it
 	
 	
-	
+136. Single Number
+	XOR
+	bit operation
+	~
+	&
+	|
+	^ XOR
 	
 	
 	
