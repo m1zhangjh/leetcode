@@ -114,8 +114,18 @@
 		return (val & r->l & l->r)
 	
 	
+104. Maximum Depth of Binary Tree
+	max, min are std functions
+		using std function is faster
+
+		
+110. Balanced Binary Tree
+	abs()	
+	return depth, if not balanced -1
 	
-	
+121. Best Time to Buy and Sell Stock
+	The maximal substraction in array
+	Each var - the min before it
 	
 	
 	

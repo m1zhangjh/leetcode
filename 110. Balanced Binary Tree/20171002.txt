@@ -1,0 +1,69 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+#include <queue>
+class Solution {
+public:
+    bool twoNodeBalanced(int deep1, int deep2) {
+        if (deep1 - deep2 > 1)
+            return false;
+        else if (deep2 - deep1 > 1)
+            return false;
+        else 
+            return true;
+    }
+    
+    int Deepth(TreeNode* n) {
+        if (n == NULL)
+            return 0;
+        int leftDeepth = 0;
+        int rightDeepth = 0;
+        if (n->left != NULL)
+            leftDeepth = Deepth(n->left);
+        if (n->right != NULL)
+            rightDeepth = Deepth(n->right);
+        return max(leftDeepth, rightDeepth) + 1;
+    }
+    
+    bool isBalanced(TreeNode* root) {
+        if (root == NULL)
+            return true;
+        else {
+            int leftDeepth = Deepth(root->left);
+            int rightDeepth = Deepth(root->right);
+            if (!twoNodeBalanced(leftDeepth, rightDeepth))
+                return false;
+            else
+                return isBalanced(root->left) && isBalanced(root->right);
+        }
+    }
+};
+
+
+#include <queue>
+class Solution {
+public: 
+    int deepth(TreeNode* n) {
+        if (n == NULL)
+            return 0;
+        int leftD = deepth(n->left);
+        int rightD = deepth(n->right);
+        if (abs(leftD - rightD) > 1 || leftD == -1 || rightD == -1)
+            return -1;
+        else
+            return max(leftD, rightD)+1;
+    }
+    bool isBalanced(TreeNode* root) {
+        int d = deepth(root);
+        if (d == -1)
+            return false;
+        else
+            return true;
+    }
+};
