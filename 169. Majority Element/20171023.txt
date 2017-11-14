@@ -1,0 +1,77 @@
+//nth_element
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int size = nums.size();
+        int half = size / 2;
+        
+        nth_element(nums.begin(), nums.begin()+half, nums.end());
+        
+        return nums[half];
+    }
+};
+
+
+//divide and conquer
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        return subMajorityElement(nums, 0, nums.size() - 1);
+    }
+    int subMajorityElement(vector<int>& nums, int s, int e) {
+        if (s == e)
+            return nums[s];
+        int m = s + (e - s) / 2;
+        
+        int m1 = subMajorityElement(nums, s, m);
+        int m2 = subMajorityElement(nums, m+1, e);
+        if (m1 == m2)
+            return m1;
+        else {
+            if(count(nums.begin()+s, nums.begin()+e+1, m1) > count(nums.begin()+s, nums.begin()+e+1, m2) )
+                return m1;
+            else
+                return m2;
+        }
+    }
+};
+
+
+//Vote
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int m = nums[0];
+        int count = 1;
+        for (int i = 1; i < nums.size(); i++) {
+            if (count == 0)
+                m = nums[i];
+            if (nums[i] == m)
+                count++;
+            else
+                count--;
+        }
+        return m;
+    }
+};
+
+
+
+//Bit
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int m = 0;
+        for (int i = 0; i < 32; i++) {
+            int count = 0;
+            int cmp = 1 << i;
+            for (int j = 0; j < nums.size(); j++) {
+                if (cmp & nums[j])
+                    count++;
+            }
+            if (count > nums.size() / 2)
+                m |= cmp;
+        }
+        return m;
+    }
+};

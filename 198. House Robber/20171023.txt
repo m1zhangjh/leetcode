@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        return subRob(nums, 0);
+    }
+    int subRob(vector<int>& nums, int s) {
+        if (s == nums.size() || s > nums.size())
+            return 0;
+        int a = subRob(nums, s+1);
+        int b = subRob(nums, s+2) + nums[s];
+        if (a > b)
+            return a;
+        else
+            return b;
+    }
+};
+
+

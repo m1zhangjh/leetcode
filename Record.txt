@@ -137,10 +137,51 @@
 	^ XOR
 	
 	
+141. Linked List Cycle
+	2x 1x finally meet in a cycle
+	Assume cycle is X steps,
+	Each iteration, 2x is 1 step faster than 1x.
+	After some iterations, 2x is X steps ahead than 1x.
 	
 	
+155. Min Stack
+	stack do not have clear()
+		only push pop top empty size
+	class 
+		private variables are at bottom
+		
+	For stack,
+		The min/max is fixed when each element pushed 
+		
+		
+160. Intersection of Two Linked Lists
+	How to reach the same node at the same time.
+	The lengths of two linked lists are different,
+	However, if two walkers go through one list, then back to another list,
+	Then the length before two walkers reach the intersection node is the same time.
+
+	Consider one list is NULL
+	recursive is wrong, because two linked listed have a lot of common nodes
 	
 	
+169. Majority Element
+	nth_element (nums.begin(), nums.begin()+x, nums.end() );
+	count(nums.begin(), nums.end(), x);
+	count(nums.begin()+s, nums.begin()+e+1, x);
+	
+	vote
+	bit
+	
+	
+198. House Robber
+	recursive is time limit exceeded
+	a: is only add last even
+	b: is only add last odd
+	
+	
+206. Reverse Linked List
+	The broken part is needed tmp.
+	tmp: next
 	
 	
 	

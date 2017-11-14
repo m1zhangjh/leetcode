@@ -1,0 +1,39 @@
+#include <unordered_map>
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        unordered_map<ListNode *, bool> hash;
+        while(head != NULL) {
+            if (hash.find(head) == hash.end()) {
+                hash[head] = true;
+                head = head->next;
+            }
+            else
+                return true;
+        }
+        return false;
+    }
+};
+
+
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        //if (head == NULL || head->next == NULL)
+        //    return false;
+        ListNode* step1 = head;
+        ListNode* step2 = head;
+        
+        while (1) {
+            if (step2 == NULL)
+                return false;
+            if (step2->next == NULL)
+                return false;
+            step1 = step1->next;
+            step2 = step2->next->next;
+            if (step1 == step2)
+                return true;
+        }
+        //return false;
+    }
+};

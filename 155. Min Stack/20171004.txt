@@ -1,0 +1,34 @@
+#include <stack>
+class MinStack {
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+
+    }
+    
+    void push(int x) {
+        nums.push(x);
+        if (mins.empty()) {
+            mins.push(x);
+        }
+        else {
+            mins.push( min(mins.top(), x) );
+        }
+    }
+    
+    void pop() {
+        nums.pop();
+        mins.pop();
+    }
+    
+    int top() {
+        return nums.top();
+    }
+    
+    int getMin() {
+        return mins.top();
+    }
+private:    
+    stack<int> nums;
+    stack<int> mins;
+};

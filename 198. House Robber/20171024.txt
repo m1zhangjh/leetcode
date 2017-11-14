@@ -1,0 +1,56 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int selectedValue = 0;
+        int unSelectedValue = 0;
+        
+        for (int i = 0; i < nums.size(); i++) {
+            unSelectedValue += nums[i];
+            int temp = unSelectedValue;
+            unSelectedValue = selectedValue;
+            selectedValue = temp;
+            if (selectedValue < unSelectedValue)
+                selectedValue = unSelectedValue;
+        }
+        
+        if (selectedValue < unSelectedValue)
+            return unSelectedValue;
+        else
+            return selectedValue;
+    }
+};
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int a = 0;  // max rob from nums[0] to nums[i-2], and unrob nums[i-1]
+        int b = 0;  // max rob from nums[0] to nums[i-1]
+        
+        for (int i = 0; i < nums.size(); i++) {
+            int tmp = b;
+            b = a + nums[i];
+            a = tmp;
+            b = max(a, b);
+        }
+        
+        return max(a,b);
+    }
+};
+
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int a = 0;  // max rob from nums[0] to nums[i-2], and unrob nums[i-1]
+        int b = 0;  // max rob from nums[0] to nums[i-1]
+        
+        for (int i = 0; i < nums.size(); i++) {
+            if (i%2 == 0)
+                a = max(a+nums[i], b);
+            else
+                b = max(a, b+nums[i]);
+        }
+        
+        return max(a,b);
+    }
+};
