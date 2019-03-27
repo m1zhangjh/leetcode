@@ -184,7 +184,12 @@
 	tmp: next
 	
 	
+848. Shifting Letters
+	String char, larger than 26, use (S[i] - 'a' + shift) % 26 + 'a'
+		String[i] = (String[i] - 'a' + shift) % 26 + 'a'
 	
+	for loop, second is condition that: if it fits condition, continue
+		for (int index = S.size() - 1; index >= 0; index--)
 	
 	
 	
