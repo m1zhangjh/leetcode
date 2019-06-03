@@ -1,0 +1,1058 @@
+20190327
+P226. Invert Binary Tree
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+		TreeNode* tempL = root->left;
+		TreeNode* tempR = root->right;
+		if (tempL != NULL)
+			invertTree(tempL);
+		if (tempR != NULL)
+			invertTree(tempR);
+		root->left = tempR;
+		root->right = tempL;
+		return root;
+    }
+};
+// Wrong, if the input node is NULL
+// Check the node, after enter it. Not before enter it.
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+		if (root == NULL)
+			return root;
+		TreeNode* tempL = root->left;
+		TreeNode* tempR = root->right;
+		invertTree(tempL);
+		invertTree(tempR);
+		root->left = tempR;
+		root->right = tempL;
+		return root;
+    }
+};
+// Simplified
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+		if (root == NULL)
+			return root;
+		TreeNode* tempL = invertTree(root->left);
+		TreeNode* tempR = invertTree(root->right);
+		root->left = tempR;
+		root->right = tempL;
+		return root;
+    }
+};
+
+
+
+P234. Palindrome Linked List
+Given a singly linked list, determine if it is a palindrome.
+Could you do it in O(n) time and O(1) space?
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {        
+		// count the length
+		int length = 0;
+		ListNode* temp = head;
+		while (temp != NULL) {
+			temp = temp->next;
+			length++;
+		}
+		
+		if (length == 0 || length == 1)
+			return true;
+		
+		// Create first half original; second half reversed 
+		ListNode* reverseList = NULL;
+		ListNode* temp1 = head;
+		for (int i = 0; i < length / 2 - 1; i++){			
+			temp1 = temp1->next;
+		}
+		
+		// length is even
+		ListNode* temp2 = NULL;
+		if (length % 2 == 0)
+			temp2 = temp1->next;
+		// length is odd
+		else
+			temp2 = temp1->next->next;		
+		temp1->next = NULL;
+		
+		ListNode* tempPrev = NULL;
+		while (temp2 != NULL) {
+			ListNode* tempNext = temp2->next;
+			temp2->next = tempPrev;
+			tempPrev = temp2;
+			temp2 = tempNext;
+		}
+		reverseList = tempPrev;
+
+		for (int i = 0; i < length / 2; i++) {
+			if ( head->val != reverseList->val )
+				return false;
+			head = head->next;
+			reverseList = reverseList->next;
+		}
+		return true;
+    }
+};
+
+
+P283. Move Zeroes
+Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int nonZeroIndex = 0;
+		for (int i = 0; i < nums.size(); i++){
+			if (nums[i] != 0) {
+				nums[nonZeroIndex] = nums[i];
+				nonZeroIndex++;
+			}
+		}
+		for (int i = nonZeroIndex; i < nums.size(); i++){
+			nums[i] = 0;
+		}
+    }
+};
+
+
+P437. Path Sum III
+You are given a binary tree in which each node contains an integer value.
+Find the number of paths that sum to a given value.
+The path does not need to start or end at the root or a leaf, but it must go downwards (traveling only from parent nodes to child nodes).
+The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+	void traverse(TreeNode* node, vector<int> prev, int sum, int &nrPath){
+		if (node == NULL)
+			return;
+		int val = node->val;
+		for (int i = 0; i < prev.size(); i++) {
+			prev[i] += val;
+		}
+		prev.push_back(val);
+		for (int i = 0; i < prev.size(); i++) {
+			if (prev[i] == sum)
+				nrPath++;
+		}		
+		traverse(node->left, prev, sum, nrPath);
+		traverse(node->right, prev, sum, nrPath);
+	} 
+
+    int pathSum(TreeNode* root, int sum) {
+		int nrPath = 0;
+		vector<int> prev;
+		prev.clear();
+		traverse(root, prev, sum, nrPath);
+		return nrPath;
+    }
+};
+// The vector<int> cannot pass by reference. Because left and right cannont modify the same vector from parent.
+
+
+
+P438. Find All Anagrams in a String
+Given a string s and a non-empty string p, find all the start indices of p's anagrams in s.
+Strings consists of lowercase English letters only and the length of both strings s and p will not be larger than 20,100.
+The order of output does not matter.
+class Solution {
+public:
+	bool anagrams(unordered_map<char, int> &hash) {
+		for (unordered_map<char, int>::iterator it = hash.begin(); it != hash.end(); it++) {
+			if (it->second != 0) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+    vector<int> findAnagrams(string s, string p) {
+		vector<int> res;
+		int pSize = p.size();
+		unordered_map<char, int> hash;
+		for (int i = 0; i < pSize; i++) {
+			char c = p[i];
+			if (hash.find(c) == hash.end())
+				hash[c] = 1;
+			else
+				hash[c] += 1;
+		}
+		
+		for (int i = 0; i < s.size(); i++) {
+			if (i >= pSize) {
+				char c1 = s[i-pSize];
+				if (hash.find(c1) != hash.end())
+					hash[c1] += 1;
+			}
+			
+			char c = s[i];
+			if (hash.find(c) != hash.end()) {
+				hash[c] -= 1;
+				if (anagrams(hash))
+					res.push_back(i-pSize+1);
+			}
+		}
+		
+		return res;
+    }
+};
+
+// String index, the length of string. 
+// unordered_map<char, int>; hash.find() != hash.end();
+
+// Could introduce the total difference
+class Solution {
+public:
+    vector<int> findAnagrams(string s, string p) {
+		vector<int> res;
+		int pSize = p.size();
+		unordered_map<char, int> hash;
+		int diff = 0;
+		for (int i = 0; i < pSize; i++) {
+			char c = p[i];
+			diff++;
+			if (hash.find(c) == hash.end())
+				hash[c] = 1;
+			else
+				hash[c] += 1;
+		}
+		
+		for (int i = 0; i < s.size(); i++) {
+			if (i >= pSize) {
+				char c1 = s[i-pSize];
+				if (hash.find(c1) != hash.end()) {
+					hash[c1] += 1;
+					if (hash[c1] > 0)
+						diff++;
+				}
+			}
+			
+			char c = s[i];
+			if (hash.find(c) != hash.end()) {
+				if (hash[c] > 0)
+					diff--;
+				hash[c] -= 1;
+				if (diff == 0)
+					res.push_back(i-pSize+1);
+			}
+		}
+		
+		return res;
+    }
+};
+
+
+20190401
+P448. Find All Numbers Disappeared in an Array
+Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+Find all the elements of [1, n] inclusive that do not appear in this array.
+Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+class Solution {
+public:
+	void update(vector<int>& nums, int index) {
+		if (index != -1) {
+			int newIndex = nums[index] - 1;
+			nums[index] = 0;
+			update(nums, newIndex);
+		}
+	}
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++)
+			update(nums, nums[i] - 1);
+		vector<int> res;
+		for (int i = 0; i < nums.size(); i++) {
+			if (nums[i] != 0)
+				res.push_back(i + 1);
+		}
+		return res;
+    }
+};
+// Update newindex = nums[index]; the intial position should not be updated.
+// Rewrite into while loop
+class Solution {
+public:
+    vector<int> findDisappearedNumbers(vector<int>& nums) {
+        for (int i = 0; i < nums.size(); i++) {
+			int index = nums[i] - 1;
+			while (index != -1) {
+				int newIndex = nums[index] - 1;
+				nums[index] = 0;
+				index = newIndex;
+			}
+		}
+		vector<int> res;
+		for (int i = 0; i < nums.size(); i++) {
+			if (nums[i] != 0)
+				res.push_back(i + 1);
+		}
+		return res;
+    }
+};
+
+20190403
+P461. Hamming Distance
+The Hamming distance between two integers is the number of positions at which the corresponding bits are different.
+Given two integers x and y, calculate the Hamming distance.
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int res = 0;
+		while (x != 0 || y != 0) {
+			if (x % 2 != y % 2)
+				res++;
+			x /= 2;
+			y /= 2;
+		}
+		return res;
+    }
+};
+
+P538. Convert BST to Greater Tree
+Given a Binary Search Tree (BST), 
+convert it to a Greater Tree such that every key of the original BST is changed to the original key plus sum of all keys greater than the original key in BST.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+	void traverse (TreeNode* node, int& sum) {
+		if (node != NULL) {
+			traverse (node->right, sum);
+			node->val += sum;
+			sum = node->val;
+			traverse (node->left, sum);
+		}
+	}
+
+    TreeNode* convertBST(TreeNode* root) {
+        int sum = 0;
+		traverse (root, sum);
+		return root;
+    }
+};
+// BST need attendation.
+// tree, left val right. passed value should pass by reference, not the exact value.
+
+
+P543. Diameter of Binary Tree
+Given a binary tree, you need to compute the length of the diameter of the tree. 
+The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+	int traversal (TreeNode* node, int& res) {
+		if (node == NULL)
+			return 0;
+		else {
+			int leftDeep = traversal (node->left, res);
+			int rightDeep = traversal (node->right, res);
+			if (leftDeep + rightDeep > res)
+				res = leftDeep + rightDeep;
+			if (leftDeep > rightDeep)
+				return leftDeep + 1;
+			else
+				return rightDeep + 1;
+		}
+	}
+
+    int diameterOfBinaryTree(TreeNode* root) {
+        int res = 0;
+		traversal (root, res);
+		return res;
+    }
+};
+
+
+P572. Subtree of Another Tree
+Given two non-empty binary trees s and t, check whether tree t has exactly the same structure and node values with a subtree of s. 
+A subtree of s is a tree consists of a node in s and all of this node's descendants. The tree s could also be considered as a subtree of itself.
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+	bool isSubtreeRoot(TreeNode* s, TreeNode* t) {
+		if (s == NULL && t == NULL)
+			return true;
+		if (s != NULL && t == NULL)
+			return false;
+		if (s == NULL && t != NULL)
+			return false;
+
+		if (s->val != t->val)
+			return false;
+
+		if ( !isSubtreeRoot(s->left, t->left) )
+			return false;
+		if ( !isSubtreeRoot(s->right, t->right) )
+			return false;
+			
+		return true;
+	}
+
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+		if (isSubtreeRoot(s, t))
+			return true;
+		if (s != NULL) {
+			if (isSubtree(s->left, t))
+				return true;
+			else if (isSubtree(s->right, t))
+				return true;
+		}
+		return false;
+    }
+};
+// Tree traveling bool return, could be && and ||
+// But be careful about the else return;
+class Solution {
+public:
+	bool isSametree(TreeNode* s, TreeNode* t) {
+		if (s == NULL && t == NULL)
+			return true;
+		else if (s != NULL && t == NULL)
+			return false;
+		else if (s == NULL && t != NULL)
+			return false;
+		else {
+			if (s->val != t->val)
+				return false;
+			else
+				return isSametree(s->left, t->left) && isSametree(s->right, t->right);
+		}
+	}
+
+    bool isSubtree(TreeNode* s, TreeNode* t) {
+		if (isSametree(s, t))
+			return true;
+		if (s != NULL) {
+			return isSubtree(s->left, t) || isSubtree(s->right, t);
+		}
+		else
+			return false;
+    }
+};
+
+
+P581. Shortest Unsorted Continuous Subarray
+Given an integer array, you need to find one continuous subarray that if you only sort this subarray in ascending order, then the whole array will be sorted in ascending order, too.
+You need to find the shortest such subarray and output its length.
+// ascending <-> descending
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int nr = nums.size();
+		if (nr == 0 || nr == 1)
+			return 0;
+
+		int indexFront = 0;
+		int valFront = nums[indexFront];
+		bool front = true;
+		for (int i = 1; i < nr; i++) {
+			if (front) {
+				if (nums[i] >= valFront) {
+					indexFront++;
+					valFront = nums[i];
+				}
+				else
+					front = false;
+			}
+			if (!front) {
+				while (nums[i] < valFront) {
+					indexFront--;
+					if (indexFront == -1)
+						break;
+					else
+						valFront = nums[indexFront];
+				}
+				if (indexFront == -1)
+					break;
+			}
+		}
+		
+		int indexBack = nr - 1;
+		int valBack = nums[indexBack];
+		bool back = true;
+		for (int i = nr - 2; i > -1; i--) {
+			if (back) {
+				if (nums[i] <= valBack) {
+					indexBack--;
+					valBack = nums[i];
+				}
+				else
+					back = false;
+			}
+			if (!back) {
+				while (nums[i] > valBack) {
+					indexBack++;
+					if (indexBack == nr)
+						break;
+					else
+						valBack = nums[indexBack];
+				}
+				if (indexBack == nr)
+					break;
+			}
+		}
+		
+		int nrUsort = indexBack - indexFront - 1;
+		if (nrUsort < 0)
+			return 0;
+		else
+			return nrUsort;
+    }
+};
+//Find the sorted left/right
+//Find the min/max in the unsorted
+//Reduce the sorted length
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int nr = nums.size();
+		int indexLeft = 0;
+		int indexRight = nr-1;
+		for (int i = 1; i < nr; i++) {
+			if (nums[i-1] <= nums[i])
+				indexLeft++;
+			else
+				break;
+		}
+		for (int i = nr-1; i > 0; i--) {
+			if (nums[i] >= nums[i-1])
+				indexRight--;
+			else
+				break;
+		}
+		
+		int curLeft = indexLeft;
+		int curRight = indexRight;
+		for (int i = curLeft; i < curRight+1; i++) {
+			if (indexLeft != -1) {
+				while (nums[i] < nums[indexLeft]) {
+					indexLeft--;
+					if (indexLeft == -1)
+						break;
+				}
+			}
+			if (indexRight != nr) {
+				while (nums[i] > nums[indexRight]) {
+					indexRight++;
+					if (indexRight == nr)
+						break;
+				}
+			}
+		}
+		
+		if (indexRight- indexLeft - 1 < 0)
+			return 0;
+		else
+			return indexRight - indexLeft - 1;
+    }
+};
+
+
+20190405
+P617. Merge Two Binary Trees
+Given two binary trees and imagine that when you put one of them to cover the other, some nodes of the two trees are overlapped while the others are not.
+You need to merge them into a new binary tree. The merge rule is that if two nodes overlap, then sum node values up as the new value of the merged node. Otherwise, the NOT null node will be used as the node of new tree.
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+	void mergeNode (TreeNode* n1, TreeNode* n2) {
+		n1->val += n2->val;
+		// Left
+		if (n1->left == NULL)
+			n1->left = n2->left;
+		else if (n2->left != NULL)
+			mergeNode(n1->left, n2->left);
+		// Right
+		if (n1->right == NULL)
+			n1->right = n2->right;
+		else if (n2->right != NULL)
+			mergeNode(n1->right, n2->right);
+	}
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+		if (t1 == NULL)
+			return t2;
+		if (t2 == NULL)
+			return t1;
+		mergeNode(t1, t2);
+		return t1;
+    }
+};
+// mergeNode(TreeNode* n1, TreeNode* n2); mergeNode(n1->left, n2->left); 
+// pass the left address. n1 = n2 does not work.
+// The n1 address changed = n2, but the call function n1->left address does not change.
+
+// point to new a instance using constructor.
+// p = new struct();
+// e.g. int *p = new int(25);
+
+// Merge Tree, first check empty, return the un-null tree;
+// val, left, right, without checking
+class Solution {
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) {
+		if (t1 == NULL)
+			return t2;
+		if (t2 == NULL)
+			return t1;
+        TreeNode* newTree = new TreeNode(t1->val + t2->val);
+		newTree->left = mergeTrees(t1->left, t2->left);
+		newTree->right = mergeTrees(t1->right, t2->right);
+		return newTree;
+    }
+};
+
+
+20190410
+P771. Jewels and Stones
+You're given strings J representing the types of stones that are jewels, and S representing the stones you have.  
+Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.
+The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" is considered a different type of stone from "A".
+class Solution {
+public:
+    int numJewelsInStones(string J, string S) {
+        unordered_map<char, int> hash;
+		
+		for (int i = 0; i < J.size(); i++) {
+			hash[J[i]] = 0;
+		}
+		
+		for (int i = 0; i < S.size(); i++) {
+			if (hash.find(S[i]) != hash.end()) {
+				hash[S[i]] += 1;
+			}
+		}
+		
+		int res = 0;
+		for (auto it = hash.begin(); it != hash.end(); it++) {
+			res += it->second;
+		}
+		
+		return res;
+    }
+};
+
+
+P7. Reverse Integer
+Given a 32-bit signed integer, reverse digits of an integer.
+Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. 
+For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+class Solution {
+public:
+    int reverse(int x) {   
+        double res = x % 10;
+        x = x / 10;
+        while (x) {
+            res = res * 10 + x %10;    
+            x = x / 10;
+        }
+
+        if (res > INT_MAX || res < INT_MIN)
+            return 0;
+        return (int) res;
+    }
+};
+
+// INT_MAX INT_MIN
+// long LONG_MAX
+// float FLT_MAX
+// double DBL_MAX
+
+Negative Calculation
+(-7/3) => -2
+-2 * 3 => -6
+so a%b => -1
+
+(7/-3) => -2
+-2 * -3 => 6
+so a%b => 1
+
+P13. Roman to Integer
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+class Solution {
+public:
+    int romanToInt(string s) {
+        char prev = '\0';
+        int res = 0;
+        for (int i = 0; i < s.size(); i++) {
+            if (s[i] == 'M') {
+                res += 1000;
+                if (prev == 'C')
+                    res -= 200;
+            }
+            else if (s[i] == 'D') {
+                res += 500;
+                if (prev == 'C')
+                    res -= 200;
+            }
+            else if (s[i] == 'C') {
+                res += 100;
+                if (prev == 'X')
+                    res -= 20;
+            }
+            else if (s[i] == 'L') {
+                res += 50;
+                if (prev == 'X')
+                    res -= 20;
+            }
+            else if (s[i] == 'X') {
+                res += 10;
+                if (prev == 'I')
+                    res -= 2;
+            }
+            else if (s[i] == 'V') {
+                res += 5;
+                if (prev == 'I')
+                    res -= 2;
+            }
+            else if (s[i] == 'I') {
+                res += 1;
+            }
+            
+            prev =s[i];
+        }
+        return res;
+    }
+};
+// char initialization with null, char c = '\0';
+class Solution {
+public:
+    int romanToInt(string s) {
+        char prev = '\0';
+        int res = 0;
+        for (int i = 0; i < s.size(); i++) {
+            switch (s[i]) {
+                case 'M':
+                    res += 1000;
+                    if (prev == 'C')
+                        res -= 200;
+                    break;
+                case 'D':
+                    res += 500;
+                    if (prev == 'C')
+                        res -= 200;                    
+                    break;
+                case 'C':
+                    res += 100;
+                    if (prev == 'X')
+                        res -= 20;
+                    break;
+                case 'L':
+                    res += 50;
+                    if (prev == 'X')
+                        res -= 20;
+                    break;
+                case 'X':
+                    res += 10;
+                    if (prev == 'I')
+                        res -= 2;
+                    break;
+                case 'V':
+                    res += 5;
+                    if (prev == 'I')
+                        res -= 2;
+                    break;
+                case 'I':
+                    res += 1;
+                    break;
+                default:
+                    break;      
+            }
+            prev =s[i];
+        }
+        return res;
+    }
+};
+
+
+20190416
+P14. Longest Common Prefix
+Write a function to find the longest common prefix string amongst an array of strings.
+If there is no common prefix, return an empty string ""
+#include <algorithm>
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+		if (strs.size() == 0)
+			return "";
+		string s = strs[0];
+			
+		for (int i = 1; i < strs.size(); i++) {
+			string sTemp = strs[i];
+			for (int j = 0; j < s.size(); j++) {
+				if (j >= sTemp.size()) {
+					s = s.substr(0, j);
+					break;
+				}
+				if (s[j] != sTemp[j]) {
+					s = s.substr(0, j);
+					break;
+				}
+			}
+		}
+		
+		return s;
+    }
+};
+
+20190417
+P26. Remove Duplicates from Sorted Array
+Given a sorted array nums, remove the duplicates in-place such that each element appear only once and return the new length.
+Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory.
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.size() == 0)
+            return 0;
+        int index = 1;
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] != nums[i-1]) {
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        //nums.resize(index);
+        return index;
+    }
+};
+// Input array is empty.
+// array.resize(x);
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int repeat = 0;
+        int n = nums.size();
+        for (int i = 1; i < n; i++) {
+            if (nums[i] == nums[i-1]) {
+                repeat++;
+            }
+            else {
+                nums[i-repeat] = nums[i]; 
+            }
+        }
+        //nums.resize(index);
+        return n - repeat;
+    }
+};
+// counts the repeat, instead of length
+
+
+P28. Implement strStr()
+Implement strStr().
+Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        if (needle.size() == 0) {
+            return 0;
+        }
+        if (haystack.size() == 0) {
+            return -1;
+        }
+        for (int i = 0; i < haystack.size(); i++) {
+            if (haystack.size() - i < needle.size()) {
+                return -1;
+            }
+            bool substr = true;
+            for (int j = 0; j < needle.size(); j++) {
+                if (haystack[i+j] != needle[j]) {
+                    substr = false;
+                    break;
+                }
+            }
+            if (substr)
+                return i;
+        }
+        return -1;
+    }
+};
+
+P38. Count and Say
+class Solution {
+public:
+    vector<int> convert (vector<int> &nums) {
+        vector<int> res;
+        int index = 0;
+        int curInt = nums[0];
+        int count = 1;
+        index++;
+        while(index < nums.size()) {
+            if (curInt != nums[index]) {
+                res.push_back(count);
+                res.push_back(curInt);
+                curInt = nums[index];
+                count = 1;
+            }
+            else {
+                count++;
+            }
+            index++;
+        }
+        res.push_back(count);
+        res.push_back(curInt);
+        
+        return res;
+    }
+    string print (vector<int> &nums) {
+        string s;
+        for (int i = 0; i < nums.size(); i++) {
+            char c = '0' + nums[i];
+            s += c;
+        }
+        return s;
+    }
+    string countAndSay(int n) {
+        vector<int> res;
+        res.push_back(1);
+        for (int i = 1; i < n; i++) {
+            res = convert(res);
+        }
+        return print(res);
+    }
+};
+
+20190522
+66. Plus One
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        for (int i = 0; i < digits.size(); i++) {
+            int index = digits.size() - i - 1;
+            int temp = digits[index] + 1;
+            if (temp != 10) {
+                digits[index] = temp;
+                break;
+            }
+            else {
+                digits[index] = 0;
+            }
+        }
+        // Check updated digits = 0
+        if (digits[0] == 0) {
+            digits.push_back(0);
+            digits[0] = 1;
+        }
+        return digits;
+    }
+};
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        for (int i = 0; i < digits.size(); i++) {
+            int index = digits.size() - i - 1;
+            if (digits[index] == 9) {
+                digits[index] = 0;
+            }
+            else {
+                digits[index] += 1;
+                return digits;
+            }
+        }
+        // Check updated digits = 0
+        digits.push_back(0);
+        digits[0] = 1;
+        return digits;
+    }
+};
+
+
+69. Sqrt(x)
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0 || x == 1)
+            return x;
+        
+        int lo = 1;
+        int hi = x / 2;
+        
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+            if (mid < x / mid) {
+                lo = mid + 1;
+            }
+            else if (mid > x / mid) {
+                hi = mid - 1;
+            }
+            else {
+                return mid;
+            }
+        }
+        return hi;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -190,13 +190,208 @@
 	
 	for loop, second is condition that: if it fits condition, continue
 		for (int index = S.size() - 1; index >= 0; index--)
+
+		
+P226. Invert Binary Tree	
+	TreeNode* problem, 
+	Check the NULL at the beginning, entering the node. 
+		Not before entering the node, it will have a problem when passed a NULL tree. 
+	
+
+P234. Palindrome Linked List
+	Check List size is 0 and 1
+	Refresh Single Linked List reverse
+	Use % 2 to decide the even and odd case
 	
 	
-	
-	
-	
-	
+P283. Move Zeroes
+	void func, don't return 
+
+P437. Path Sum III
+In tree traverse,
+The vector<int> cannot pass by reference
+Left and right cannont modify the same vector from parent.
+
+P438. Find All Anagrams in a String
+begin of the substring, index-lenght+1
+26 letters, could use vector<int> record(26,0); or use unordered_map<char, int> hash;
+hash.find(c) != hash.end();
+for (auto it = hash.begin(); it != hash.end(); it++)
+for (unordered_map<char, int>::iterator it = hash.begin(); it != hash.end(); it++)
+Use a diff to count the difference from target
+
+
+P448. Find All Numbers Disappeared in an Array
+Update newindex = nums[index]; the intial position should not be updated.
+?? Recursive v.s. while loop
+How it compiled.
+recursive: func call, stack
+while: branch jump
+Hard to predict branch, no clear jump pattern, recursive is better
+
+
+P461. Hamming Distance
+x /= 2; shift right a bit. 
+However
+x >> 1; shift right
+x << 1; shift left
+integer represenetation: two complement represenetation(sign bit + magnitude bits)
+floating point: significand, base, exponent (sign, exponent, significand field)
+
+P538. Convert BST to Greater Tree
+BST need attendation.
+tree, left val right. passed value should pass by reference, not the exact value.
+
+P543. Diameter of Binary Tree
+left; right; compare deep sum; return deep; 
+
+P572. Subtree of Another Tree
+Tree traveling bool return, could be && and ||
+But be careful about the else return;
+
+P581. Shortest Unsorted Continuous Subarray
+//Find the sorted left/right
+//Find the min/max in the unsorted
+//Reduce the sorted length
+// Check Right-Left-1 < 0 or not
 	
 		
-		
-	
+P617. Merge Two Binary Trees
+// mergeNode(TreeNode* n1, TreeNode* n2); mergeNode(n1->left, n2->left); 
+// pass the left address. n1 = n2 does not work.
+// The n1 address changed = n2, but the call function n1->left address does not change.
+
+// point to new a instance using constructor.
+// p = new struct();
+// e.g. int *p = new int(25);
+
+// Merge Tree, first check empty, return the un-null tree;
+// val, left, right, without checking
+
+
+P771. Jewels and Stones
+unordered_map<char, int> hash;
+hash[s[i]] = 0;
+if (hash[s[i]] != hash.end()) {
+}
+for (auto iter = hash.begin(); iter != hash.end(); iter++) {
+	iter->second;
+}
+
+
+P7. Reverse Integer
+// INT_MAX INT_MIN
+// long LONG_MAX
+// float FLT_MAX
+// double DBL_MAX
+
+Negative Calculation
+(-7/3) => -2
+-2 * 3 => -6
+so a%b => -1
+
+(7/-3) => -2
+-2 * -3 => 6
+so a%b => 1
+
+P13. Roman to Integer
+char c = '\0'; // char initialization with null
+
+Different between if else  vs  switch
+switch is more readable
+switch easy to forget the break.
+switch only accepts primitive types as key and constants as cases. 
+This means it can be optimized by the compiler using a jump table which is very fast.
+
+
+
+P14. Longest Common Prefix
+When compare two strings, remember the size of two strings
+string operations
+td::string str="We think in generalities, but we live in details.";
+std::string str2 = str.substr (3,5);     // "think"
+std::size_t pos = str.find("live");      // position of "live" in str
+std::string str3 = str.substr (pos);     // get from "live" to the end
+
+std::string str1 ("green apple");
+std::string str2 ("red apple");
+if (str1.compare(str2) != 0)
+  std::cout << str1 << " is not " << str2 << '\n';
+if (str1.compare(6,5,"apple") == 0)
+  std::cout << "still, " << str1 << " is an apple\n";
+if (str2.compare(str2.size()-5,5,"apple") == 0)
+  std::cout << "and " << str2 << " is also an apple\n";
+if (str1.compare(6,5,str2,4,5) == 0)
+  std::cout << "therefore, both are apples\n";
+
+
+P26. Remove Duplicates from Sorted Array
+// Input array is empty.
+// array.resize(x);
+// counts the repeat, instead of length
+
+
+P28. Implement strStr()
+// index are different 
+// haystack[i+j] != needle[j].
+
+
+P38. Count and Say
+//integer to char
+char aChar = '0' + i;
+//add char to string
+string s = "asd";
+s += aChar;
+s += "fgh";
+str.append(str2);
+str.append(str3, pos, length);  //pos & length of str3
+
+//int to string
+int a = 10;
+	stringstream ss;
+	ss << a;
+	string str = ss.str();
+// string to int/double
+string s = "123";
+	int a = atoi(s.str());
+
+66. Plus One
+break, sometimes is return
+
+69. Sqrt(x)
+#include <cmath> // cpp library
+#include <math.h> // c library
+Binary Search (floor)
+while (lo <= hi) {
+	mid < x, lo = mid + 1;
+	mid > x, hi = mid - 1;
+	mid = x, return mid;
+}
+return lo - 1; // return hi; hi = lo - 1;
+
+Binary Search (ceil)
+while (lo <= hi) {
+	mid < x, lo = mid + 1;
+	mid > x, hi = mid - 1;
+	mid = x, return mid;	
+}
+return hi + 1; // return lo; lo = hi + 1;
+
+
+88. Merge Sorted Array
+Array shift: from end to begin
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

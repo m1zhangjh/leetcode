@@ -1,0 +1,4 @@
+public, private, protected
+A public member is accessible from anywhere outside the class but within a program.
+A private member variable or function cannot be accessed, or even viewed from outside the class. Only the class and friend functions can access private members.
+A protected member variable or function is very similar to a private member but it provided one additional benefit that they can be accessed in child classes which are called derived classes.
