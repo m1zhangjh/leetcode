@@ -1,0 +1,73 @@
+给你一个文本串 T ，一个非空模板串 S ，问 S 在 T 中出现了多少次
+
+数据范围：1 \le len(S) \le 500000, 1 \le len(T) \le 10000001≤len(S)≤500000,1≤len(T)≤1000000
+
+要求：空间复杂度 O(len(S))O(len(S))，时间复杂度 O(len(S)+len(T))O(len(S)+len(T))
+
+示例1
+输入："ababab","abababab"
+返回值：2
+
+示例2
+输入："abab","abacabab"
+返回值：1
+
+
+超时
+class Solution {
+public:
+    int kmp(string S, string T) {
+        int sizeS = S.length();
+        int sizeT = T.length();
+        if (sizeS > sizeT) {
+            return 0;
+        }
+        vector<int> preMatch;
+        preMatch.resize(sizeS, 0);
+        int matchSize = 0;
+        for (int i = 1; i < sizeS; i++) {
+            if (S[matchSize] == S[i]) {    // Continue match
+                matchSize++;
+                preMatch[i] = matchSize;
+            }
+            else if (matchSize > 0) {    // AAACAAAA
+                //matchSize--;
+                int newMatchSize = preMatch[matchSize];
+                matchSize = newMatchSize;
+                i--;
+            }
+            else {
+                matchSize = 0;
+                preMatch[i] = 0;
+            }
+        }
+        
+        for (int i = 0; i < sizeS; i++)
+            cout << preMatch[i] << " ";
+            cout << endl;
+        
+        
+        int res = 0;
+        matchSize = 0;
+        for (int i = 0; i < sizeT; i++) {
+            cout << i << " " << matchSize << endl;
+            if (T[i] == S[matchSize]) {
+                matchSize++;
+                if (matchSize == sizeS) {
+                    res++;
+                    matchSize = preMatch[sizeS - 1];
+                }
+            }
+            else if (matchSize > 0) {
+                int newMatchSize = preMatch[matchSize-1];
+                matchSize = newMatchSize;
+                i--;  
+            }
+            else {
+                matchSize = 0;    
+            }
+            
+        }
+        return res;
+    }
+};

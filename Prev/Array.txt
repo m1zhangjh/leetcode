@@ -1,0 +1,14 @@
+1. Two Sum
+
+unordered_map<int, int> hash;
+
+// res return at the end of code, instead of the middle of code.
+if () {
+}
+else {
+res = res1;
+break;
+}
+return res;
+
+

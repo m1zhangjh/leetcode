@@ -1,0 +1,18 @@
+#include <bits/stdc++.h>
+
+#include <iostream>		// std::cout
+#include <string>
+#include <vector>
+#include <math>
+#include <algorithm>    // std::max
+#include <unordered_map>
+
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int a, b;
+    while (cin >> a >> b) { // 注意 while 处理多个 case
+        cout << a + b << endl;
+    }
+}

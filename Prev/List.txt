@@ -1,0 +1,81 @@
+// N the number of nodes
+// 1, 2, 4, .... (k)
+// The last K value 
+
+#include <iostream>
+
+using namespace std;
+
+struct node
+{
+    int data;
+    node *next;
+};
+
+class linked_list
+{
+public:
+    node *head, *tail;
+
+    linked_list()
+    {
+        head = NULL;
+        tail = NULL;
+    }
+
+    void add_node(int n)
+    {
+        node *tmp = new node;
+        tmp->data = n;
+        tmp->next = NULL;
+
+        if(head == NULL)
+        {
+            head = tmp;
+            tail = tmp;
+        }
+        else
+        {
+            tail->next = tmp;
+            tail = tail->next;
+        }
+    }
+	
+	node *getHead()
+	{
+		return head;
+	}
+};
+
+int main()
+{
+    linked_list list;
+	
+	int N;
+	cin >> N;
+	for (int i = 0; i < N; i++) {
+		int value;
+		cin >> value;
+		list.add_node(value);
+	}
+	int k;
+	cin >> k;
+	
+	node *n1 = NULL;
+	node *n2 = list.getHead();
+	while(n2 != NULL) {
+		n2 = n2->next;
+		k--;
+		if (k == 0) {
+			n1 = list.getHead();
+		}
+		if (k < 0) {
+			n1 = n1->next;
+		}
+	}
+	
+	if (n1 != NULL)
+		cout << n1->data; 
+	
+    return 0;
+}

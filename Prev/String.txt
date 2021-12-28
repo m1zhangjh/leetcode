@@ -1,0 +1,192 @@
+### String last word length
+
+#include<iostream>
+
+using namespace std;
+int main()
+{
+    string str;
+    getline(cin, str);
+    int count = 0;
+    for(int i = str.size() - 1; i >= 0; i--)
+    {
+        if(str[i] == ' ') break;
+        count++;
+    }
+    cout << count << endl;
+    return 0;
+}
+
+
+
+### Strings to 8 length
+
+#include <iostream>
+ 
+using namespace std;
+ 
+int main(){
+    string s1, s2;
+    while(getline(cin,s1)){
+        getline(cin,s2);
+        if(s1.empty() == 0){
+            if(s1.size()%8 != 0){
+                s1.insert(s1.size(),8-s1.size()%8,'0');
+            }
+            for(int ii=0;ii<s1.size();ii+=8){
+                cout << s1.substr(ii,8) << endl;
+            }
+        }
+        if(s2.empty() == 0){
+            if(s2.size()%8 != 0){
+                s2.insert(s2.size(),8-s2.size()%8,'0');
+            }
+            for(int ii=0;ii<s2.size();ii+=8){
+                cout << s2.substr(ii,8) << endl;
+            }
+        }        
+    }
+    return 0;
+}
+
+#include<iostream>
+#include<string>
+#include<algorithm>
+using  namespace std;
+ 
+void stringsplit(string str);
+int main()
+    {
+    string str;
+    while(getline(cin,str))
+        {
+        stringsplit(str);
+    }
+        return 0;
+}
+void stringsplit(string str)
+    {
+    if(str.size()%8!=0)
+        str.append(7,'0');		// Add seven 0
+    while(str.size()>=8)
+        {
+        cout<<str.substr(0,8)<<endl;	// From 0 to 7
+        str=str.substr(8);		// From 8 to end
+    }
+}
+
+
+### HEX to DEC
+
+#include <iostream>
+using namespace std;
+ 
+int main() {
+    string str;
+     
+    while (getline(cin, str)) {
+        if (str.length() <= 0) 
+			break;
+        long num = 0; 
+        for (int i = 2; i < str.length(); ++i) {	// 0x ignore
+            if (str[i] >= '0' && str[i] <= '9')
+                num = num * 16 + (str[i] - '0');
+            else
+                num = num * 16 + (str[i] - 'A' + 10);
+        }
+        cout << num << endl;
+    }
+    return 0;
+}
+
+
+
+
+### Sort
+#include<iostream>
+#include<string>
+#include<algorithm>
+using namespace std;
+const string helper1 = "0123456789abcdefABCDEF";
+const string helper2 = "084C2A6E195D3B7F5D3B7F";
+int main()
+{
+    string s1,s2,s;
+    while(cin >> s1 >> s2)
+    {
+        s = s1 + s2;
+        string str1,str2,str;
+        for(int i = 0;i < s.length();i++)
+        {
+            if(i % 2 == 0)
+                str1 += s[i];
+            else
+                str2 += s[i];
+        }
+        sort(str1.begin(),str1.end());
+        sort(str2.begin(),str2.end());
+        for(int i = 0;i < s.length();i++)
+        {
+            if(i % 2 == 0)
+                str += str1[i/2];
+            else
+                str += str2[i/2];
+        }
+        for(int i = 0;i < str.length();i++)
+        {
+            int n = helper1.find(str[i]);
+                if(n != -1)
+                    str[i] = helper2[n];
+        }
+        cout << str << endl;
+    }
+    return 0;
+}
+
+
+#include <iostream>
+#include <string>
+ 
+using namespace std;
+ 
+int main()
+{
+    string str;
+    char a;
+    getline(cin, str);
+    cin >> a;
+	if (a >= 'A' && a =< 'Z') 	// Capital to Small
+		a = a + ('a'-'A');		// In ASCII A is in front (small) of a
+	
+    int count = 0;
+    for(int i=0; i<str.size(); i++)
+    {
+        if(str[i]==a || str[i] == a-('a'-'A'))    // a is small, a-('a'-'A') is large
+            count ++;
+    }
+    cout << count << endl;
+}
+
+
+
+### Count char在ACSII码范围内(0~127)
+
+#include <iostream>
+using namespace std;
+ 
+int main()
+{
+    char ch;
+    char temp[128] = {0};
+    while(cin >> ch){
+        if(ch >= 0 && ch <= 127)
+            temp[ch]++;
+    }
+    int cnt = 0;
+    for(int i = 0; i <= 127; ++i){
+        if(temp[i])
+            ++cnt;
+    }
+    cout << cnt << endl;
+    return 0;
+}

@@ -85,12 +85,29 @@
 		list2;
 		
 	Consider recursive for link list
-	
+
+		ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+			// Check whether two lists are empty or not
+			if (l1 == NULL)
+				return l2;
+			else if (l2 == NULL)
+				return l1;
+			
+			if (l1->val < l2->val) {
+				l1->next = mergeTwoLists(l1->next, l2);
+				return l1;
+			}
+			else {
+				l2->next = mergeTwoLists(l1, l2->next);
+				return l2;
+			}
+		}
+
 
 53. Maximum Subarray
 	dynamic algorithm
 	largest sum + contiguous subarray
-	-> previous array disadvantage -> reset
+	-> previous array disadvantage (sum<0) -> reset
 	
 
 70. Climbing Stairs
@@ -284,6 +301,10 @@ P7. Reverse Integer
 // long LONG_MAX
 // float FLT_MAX
 // double DBL_MAX
+
+#include <limits>
+std::numeric_limit<double>::max()
+
 
 Negative Calculation
 (-7/3) => -2
