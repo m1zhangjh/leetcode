@@ -12,7 +12,23 @@ using namespace std;
  
 int main() {
     int a, b;
-    while (cin >> a >> b) { // 注意 while 处理多个 case
+    while (cin >> a >> b) {
         cout << a + b << endl;
     }
 }
+
+std::string line;
+while (std::getline(std::cin, line))
+{
+    std::cout << line << std::endl;
+}
+
+while(cin >> str) {
+	cout << str;
+}
+
+#include <iostream>
+#include <iomanip>
+    std::cout << std::fixed;
+    std::cout << std::setprecision(2);
+    std::cout << d;

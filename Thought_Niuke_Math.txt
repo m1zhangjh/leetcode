@@ -1,0 +1,40 @@
+质数因子 Prime factor
+for(int i = 2; i <= sqrt(n); i++)  
+	while(n%i == 0)   
+		cout << i << " ";  
+		n /= i;
+if (n > 1) cout << n << " ";
+只有一个质数因子>=sqrt(n)
+
+
+找到所有小于n的质数
+vector<int> isPrime;
+isPrime.resize(n, 1);
+for (int i = 2; i < n; i++) {
+	if (isPrime[i] == 1) {
+		cout << i;
+		if ((long) i*i < n) {
+			for (int j = i*i; j < n; j += i) {
+				isPrime[j] = 0;
+
+判断一个数是否为质数 (两个以上因子 必有一个因子小于sqrt(n))
+if (n < 2) return false;
+if (n % 2 == 0 && n > 2) return false;
+if (int i = 3; i <= sqrt(n); i += 2) {
+	if (n % i == 0) return false;
+}
+return true;
+
+最小公倍数
+i = 1...min(a,b);
+resCheck = i * max(a,b); 
+最小公倍数 = a * b / 最大公约数
+最大公约数 （相除）
+z = b;
+while (a%b != 0) {
+	z = a%b;
+	a = b;
+	b = z;
+}
+return z;
+

@@ -6,19 +6,24 @@ unordered_map <char, int> hash;
 	for (unordered_map<char, int>::iterator it = hash.begin(); it != hash.end(); it++) {
 		char c = it->first;
 	
+int sz = sizeof(arr) / sizeof(arr[0]);
 	
 vector<int>
 	begin		end
 	front		back
 				pop_back	(return void)
 				push_back
-				
+	vector<int> vec(n, 10); // all values as 10
+	vector<vector<int> > vec(n, vector<int>(3,0)); // n * 3 * 0
 list<int>
 	begin		end
 	front		back
 	pop_front	pop_back	(return void)
 	push_front	push_back
 
+	it1 = mylist.erase (it1);
+	mylist.remove(val);
+	
 queue<int>
 	front		back
 				pop			(return void)

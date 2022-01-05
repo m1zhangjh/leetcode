@@ -38,7 +38,7 @@ NC40 两个链表生成相加链表
 		res->next = resTempNew;
 		res = res->next;
 	}
-NC96 判断一个链表是否为回文结构
+NC96 判断一个链表是否为回文结构 (Palindrome)
 	Half, inverse, compare
 NC133 链表的奇偶重排
 	if (oddIndex->next == NULL)
