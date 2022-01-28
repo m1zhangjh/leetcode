@@ -54,3 +54,10 @@ switch (c) {
 	case '[':	break;
 	default: ;
 }
+
+INT_MAX, INT_MIN
+LONG_MAX, LONG_MIN
+FLT_MAX, FLT_MIN
+DBL_MAX, DBL_MIN
+
+variable = (condition) ? expressionTrue : expressionFalse;

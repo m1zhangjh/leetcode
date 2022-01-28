@@ -45,3 +45,5 @@ vector.resize(size, val);
 sort(vec.begin(), vec.end(), cmp);
 sort(vec.begin(), vec.begin()+4, cmp);
 bool cmp (int i, int j) {return i < j;}
+
+rand() % 10; // from 0 to 9

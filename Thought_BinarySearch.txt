@@ -1,0 +1,49 @@
+4. Median of Two Sorted Arrays
+	median position is fixed in nums2, when decided in nums1;
+	median is correct if nums2.l <= nums1.r && nums1.l <= nums2.r;
+	the total nums in left is (m+n)/ 2
+	use first right index to binary search (remove the inpossible boundary)
+	
+        if (m >= n) {
+            int l = (m + n) / 2 - n; 
+            int r = (m + n) / 2;
+            return median(nums1, nums2, l, r, m, n); 
+			
+        int indexR1 = (l + r) / 2;
+        int indexL1 = indexR1 - 1;
+        int indexR2 = (m + n) / 2 - indexR1;
+        int indexL2 = indexR2 - 1;
+        int L1 = (indexL1 >= 0) ? nums1[indexL1] : INT_MIN;
+        int R1 = (indexR1 < m) ? nums1[indexR1] : INT_MAX;
+        int L2 = (indexL2 >= 0) ? nums2[indexL2] : INT_MIN;
+        int R2 = (indexR2 < n) ? nums2[indexR2] : INT_MAX;
+
+        float res = 0;
+        if (L1 <= R2 && L2 <= R1) {
+            res = ((m+n)%2 == 1) ? min(R1, R2) : (float) (min(R1,R2) + max(L1, L2)) / 2;
+        }
+        else if (L1 > R2) {
+            res = median(nums1, nums2, l, indexL1, m, n);
+        }
+        else {
+            res = median(nums1, nums2, indexR1 + 1, r, m, n);
+        }
+        return res;
+		
+33. Search in Rotated Sorted Array
+	possibly rotated:
+		check position on right. Then, no rotated position is 0.
+		index convert: seperated (sz - pos): index+pos; index-(sz-pos);
+		binary search (remove the inpossible boundary)
+		
+162. Find Peak Element
+	binary search, peak existed in higher half.
+	
+528. Random Pick with Weight
+	Accumulated Weight
+	
+1011. Capacity To Ship Packages Within D Days
+	Binary search to check all possible capacity
+		if yes, update and check smaller capacity
+		if no, go to larger capacity
+	
