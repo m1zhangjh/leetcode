@@ -1,0 +1,104 @@
+50. Pow(x, n)
+	n < 0: x = 1/x; n = -n;
+	int n to long n (stupid -max cannot convert to +max, overflow)
+	y to store x/2 val obtained from recursive func
+	
+    double rePow(double x, long n) {
+        if (n == 0) return 1;
+        if (n == 1) return x;
+        double y = rePow(x, n/2);
+        if (n % 2 == 0) return y * y;
+        else return x * y * y;
+    }
+	
+779. K-th Symbol in Grammar
+n rows (1-indexed). We start by writing 0 in the 1st row.
+next row： 0 with 01, and each occurrence of 1 with 10.
+n = 3, the 1st row is 0, the 2nd row is 01, and the 3rd row is 0110.
+    
+	int kthGrammar(int n, int k) {
+        if (k == 1) return 0;        
+        if (k % 2 == 0) return 1 - kthGrammar(n - 1, k / 2);
+        else return kthGrammar(n - 1, (k + 1) / 2);
+    }
+	
+    int kthGrammar(int n, int k) {
+        if (k == 1) return 0;        
+        if (k % 2 == 0) return kthGrammar(n - 1, k / 2) == 0 ? 1 : 0;
+        else return kthGrammar(n - 1, (k + 1) / 2) == 0 ? 0 : 1;
+    }
+	
+// return a = rc(...);
+// return rc(...) == val ? res1 : res2;
+
+776. Split BST
+    vector<TreeNode*> splitBST(TreeNode* root, int target) {
+        vector<TreeNode*> res;
+        res.push_back(NULL);
+        res.push_back(NULL);
+        if (root == NULL) {
+            return res;
+        }
+        if (root->val <= target) {
+            res = splitBST(root->right, target);
+            root->right = res[0];
+            res[0] = root;
+        }
+        else {
+            res = splitBST(root->left, target);
+            root->left = res[1];
+            res[1] = root;
+        }
+        return res;
+    }
+	
+450. Delete Node in a BST
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if (root == NULL) return root;
+        if (root->val < key) {
+            root->right = deleteNode(root->right, key); 
+        }
+        else if (root->val > key) {
+            root->left = deleteNode(root->left, key);
+        }
+        else if (root->val == key) {
+            if (root->left == NULL) {
+                root = root->right;
+            }
+            else if (root->right == NULL) {
+                root = root->left;
+            }
+            else {
+                TreeNode* right = root->right;
+                root = root->left;
+                TreeNode* temp = root;
+                while (temp->right != NULL) {
+                    temp = temp->right;
+                }
+                temp->right = right; 
+            }
+        }
+        return root;
+    }
+	
+250. Count Univalue Subtrees
+    bool check(TreeNode* root) {
+        if (root == NULL) return true;
+        bool left = check(root->left);
+        bool right = check(root->right);
+        bool res = false;
+        if (left && right) {
+            if ((root->left == NULL || root->val == root->left->val) && \
+                (root->right == NULL || root->val == root->right->val))
+                res = true;
+        } 
+        if (res) nr++;
+        return res;
+    }
+	
+687. Longest Univalue Path
+	rc return the longest in either left or right
+		update the result which lead by the cur node
+124. Binary Tree Maximum Path Sum
+	rc return the max in either itself or itself + max(left, right)
+		update res with either itself + left(>0) + right(>0)

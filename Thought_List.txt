@@ -1,11 +1,26 @@
 /*
 struct ListNode {
 	int val;
-	struct ListNode *next;
-	ListNode(int x) :
-			val(x), next(NULL) {
+	ListNode* next;
+	ListNode() : val(0), next(NULL) {}
+	ListNode(int x) : val(x), next(NULL) {}
+	ListNode(int x, ListNode* n) : val(x), next(n) {}
+};
+*/
+class LinkList {
+private:
+	ListNode* head;
+	ListNode* tail;
+public:
+	LinkList() {head = NULL; tail = NULL；}
+	void addNode(int v) {
+		ListNode* temp = new ListNode(v);
+		if (head == NULL) {head = temp; tail = temp;}
+		else {tail->next = temp; tail = tail->next;}
 	}
-};*/
+}
+LinkList l; l.add_node(1);
+
 	ListNode* inverse(ListNode* head) {
         ListNode* prev = NULL;
         ListNode* cur = head;
@@ -18,6 +33,19 @@ struct ListNode {
         }
         return prev;
     }
+
+141. Linked List Cycle
+	step+2, step+1,
+	if(match) step+2->head;
+	continue, if match, the pos. step+1, step+1.
+82. Remove Duplicates from Sorted List II
+	ListNode* preHead = new ListNode();
+	keep prev, 
+	while () check repeat, check cur, next;
+	while finished, if (repeat) prev->next = NULL;
+2. Add Two Numbers
+	ListNode* preHead = new ListNode();
+	Keep prev in recursive function is useful
 
 NC33 merge two sorted linked list
 	Check NULL

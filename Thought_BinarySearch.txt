@@ -1,3 +1,15 @@
+35. Search Insert Position
+	Basic Binary Search
+
+	left = 0; right = sz - 1;
+	while(left <= right) {
+		mid = (left+right)/2;
+		if (target == num) return mid;
+		if (target > num) left = mid + 1;
+		if (target < num) right = mid - 1;
+	}
+	return left;
+
 4. Median of Two Sorted Arrays
 	median position is fixed in nums2, when decided in nums1;
 	median is correct if nums2.l <= nums1.r && nums1.l <= nums2.r;
@@ -29,12 +41,22 @@
             res = median(nums1, nums2, indexR1 + 1, r, m, n);
         }
         return res;
-		
+
+
+153. Find Minimum in Rotated Sorted Array
+	left = 1; right = sz - 1;
+	while (left <= right) {
+        if (nums[mid] < nums[mid - 1]) return nums[mid];
+        if (nums[mid] < nums[0]) right = mid - 1;
+        if (nums[mid] > nums[0]) left = mid + 1;
+    }
+	return nums[0];
+	
 33. Search in Rotated Sorted Array
 	possibly rotated:
-		check position on right. Then, no rotated position is 0.
-		index convert: seperated (sz - pos): index+pos; index-(sz-pos);
-		binary search (remove the inpossible boundary)
+		find rotated position (right): left = 1, right = sz - 1; if not find return 0;
+		index convert: seperated by (sz - pos): pos + index;; index - (sz-pos);;
+		binary search
 		
 162. Find Peak Element
 	binary search, peak existed in higher half.

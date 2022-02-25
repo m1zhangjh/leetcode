@@ -32,3 +32,17 @@ while(cin >> str) {
     std::cout << std::fixed;
     std::cout << std::setprecision(2);
     std::cout << d;
+
+
+Initialization:
+vector<int> test{1, 2, 3};
+
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode() : val(0), left(NULL), right(NULL) {}
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	TreeNode(int x, TreeNode* l， TreeNode* r) : val(x), left(l), right(r) {}
+};
+TreeNode* node = new TreeNode(0);

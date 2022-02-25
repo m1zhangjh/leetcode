@@ -1,0 +1,58 @@
+121. Best Time to Buy and Sell Stock （One time）
+	keep min as start;
+	for (1:n) 	check profit = cur - min
+				update min
+				
+DP: same as 121, however keep a k times (<=1)
+			
+			
+122. Best Time to Buy and Sell Stock II （N times）
+	achieve every profit (all increasing price, every each two days)
+	
+DP + recursive
+	profit[days][buy/sell] to store (at i day, buy or sell state) max profit. 
+
+    int DP(vector<int>& prices, int buy, int day, vector<vector<int>>& profit) {
+        if (day >= prices.size()) return 0;
+        if (profit[day][buy] != -1) return profit[day][buy];   
+        if (buy == 1) {
+            return profit[day][buy] = max(-prices[day] + DP(prices, 0, day+1, profit), DP(prices, 1, day+1, profit));
+        }
+        else { // buy == 0, sell
+            return profit[day][buy] = max(prices[day] + DP(prices, 1, day+1, profit), DP(prices, 0, day+1, profit));
+        }
+    }
+    int maxProfit(vector<int>& prices) {
+        int sz = prices.size();
+        vector<vector<int>> profit(sz, vector<int>(2, -1));   
+        return DP(prices, 1, 0, profit);
+    }
+	
+	
+123. Best Time to Buy and Sell Stock III (2 times)
+188. Best Time to Buy and Sell Stock IV  (k times)
+DP + recursive
+	profit[days][buy/sell][k times]
+    
+    int DP(vector<int>& prices, int day, int buy, int times, int k, vector<vector<vector<int>>>& profit) {
+        if (day >= prices.size() || times >= k) return 0;
+        if (profit[day][buy][times] != -1) return profit[day][buy][times];
+        if (buy == 1) {
+            return profit[day][buy][times] = max( \
+                    -prices[day] + DP(prices, day+1, 0, times, k, profit), \
+                    DP(prices, day+1, 1, times, k, profit) );
+        }
+        else {  // sell, buy == 0
+            return profit[day][buy][times] = max( \
+                    prices[day] + DP(prices, day+1, 1, times+1, k, profit), \
+                    DP(prices, day+1, 0, times, k, profit) );
+        }
+    }
+    int maxProfit(int k, vector<int>& prices) {
+        int sz = prices.size();
+        vector<vector<vector<int>>> profit(sz, vector<vector<int>>(2, vector<int>(k, -1)));
+        return DP(prices, 0, 1, 0, k, profit);
+    }
+	
+	
+all adjacent valley/peak pair

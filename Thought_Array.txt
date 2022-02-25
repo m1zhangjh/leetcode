@@ -1,0 +1,63 @@
+347. Top K Frequent Elements
+    struct Num {
+        int num;
+        int times;
+        Num() : num(0), times(0) {}
+        Num(int a, int b) : num(a), times(b) {}
+    };
+    static bool cmp(Num num1, Num num2) {
+        return num1.times > num2.times;
+    } 	
+    sort(myNum.begin(), myNum.end(), cmp);	
+
+56. Merge Intervals
+	sort using the first num, then merge.
+	sort(intervals.begin(), intervals.end(), cmp);
+    static bool cmp(vector<int> v1, vector<int> v2) {
+        return v1[0] < v2[0];
+    }
+	static is needed in the class, because sort function is not defined in the class
+	
+253. Meeting Rooms II
+	sort(intervals.begin(), intervals.end());
+	Keep the end of each meeting room.
+
+
+239. Sliding Window Maximum
+	[1  3  -1] -3  5  3  6  7       3
+	 1  3 [-1  -3  5] 3  6  7       5
+	Deque to store window. (store index instead of value)
+	previous small numbers doesn't matter
+	Update window: check from back, if small, then remove;
+		the window will be a sorted decreasing number;
+		the max is the window[0]
+	
+	while loop check window[0] index is fit for boundary or not;
+	update the next in nums;
+	update res;
+	
+
+560. Subarray Sum Equals K
+	[i, j] = [0, j] - [0, i]
+
+
+	
+146. LRU Cache (Least Recently Used (LRU) cache)
+	list<vector<int, int>> cache; (key, value; keep in an order)
+	unordered_map<int, list<vector<int, int>>::iterator> key; (used for search)
+	
+	myList.splice(pos, list2)
+	myList.splice(pos, list2, it2pos）
+	myList.splice(pos, list2, it2s, it2e）
+		//splice (the element in list2 is only existed in myList)
+		拼接（cut removed from list2）
+		list2 can be the same as myList
+	myList.splice(myList.begin(), myList, it) // move it to the begin of the list
+	
+	
+31. Next Permutation
+	i from n-2 to 0
+	j from n-1 to i-1
+	find the first [i] < [j], swap.
+	then sort/reverse (i+1, end)
+	

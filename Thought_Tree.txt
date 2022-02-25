@@ -1,0 +1,71 @@
+/*
+struct TreeNode {
+	int val;
+	TreeNode* left;
+	TreeNode* right;
+	TreeNode() : val(0), left(NULL), right(NULL) {}
+	TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+	TreeNode(int x, TreeNode* l， TreeNode* r) : val(x), left(l), right(r) {}
+};
+*/
+[1,2,2,null,3,null,3] -> TreeNode*
+// Use queue/list to store next assign TreeNode
+
+// Tree traversal use list to store 
+
+
+111. Minimum Depth of Binary Tree
+	it NULL. both NULL, left NULL, right NULL, both Node
+
+101. Symmetric Tree
+	subtree is also symmetric tree
+226. Invert Binary Tree
+	subtree is also inverted
+617. Merge Two Binary Trees
+	return left, right.
+102. Binary Tree Level Order Traversal
+	Use list push_back, pop_front to implment queue
+103. Binary Tree Zigzag Level Order Traversal
+	right dir: push_back(left, right)
+	left dir: push_front(right, left)
+	res.pop_back(); // Remove the last empty vector in res. which is due to NULL
+98. Validate Binary Search Tree
+	store from left to right, and check
+		if (root == NULL) return;
+        inOrder(root->left); tree.push_back(root->val); inOrder(root->right);
+	Or struct Res {
+			bool valid; int l; int r;
+			Res() : valid(true), l(0), r(0) {}
+		};
+105. Construct Binary Tree from Preorder and Inorder Traversal
+	Preorder is left left then right
+	Inorder left is not empty, has left node;
+	
+
+
+543. Diameter of Binary Tree
+	Use val to store deepth
+	Or update res, when traversal the deepth
+	
+
+Binary Search Tree (order, left is smaller, right is higher)
+108. Convert Sorted Array to Binary Search Tree
+	binary search assign (left, mid, right)
+938. Range Sum of BST
+	val<low right; val>high left; val[] val+left+right;
+
+776. Split BST （two subtree, <= target, and > target）
+	recursive
+	if (NULL) return NULL, NULL;
+	if (val <= target): 
+		// cur left keep.
+		res = rc(cur->right),
+		cur->right = res[left];
+		res[left] = cur;
+		return res;
+	if (val > target):
+		// cur right keep.
+		res = rc(cur->left);
+		cur->left = res[right];
+		res[right] = cur;
+		return res;

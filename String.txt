@@ -11,7 +11,6 @@ string str = "string";									// string embedded a \0 in string
 	char arr[1024];
 	strcpy(arr, str.c_str());
 
-
 // ==
 	vector<char> temp;
 	if (str[i] == '{')
@@ -33,6 +32,11 @@ while (end != string::npos) {
 	start = end + 1;
 	end = s.find(':', start);
 }
+// String Compare
+str.compare(str1) == 0 // 0 = Equal, <0 first mismatch is smaller or short, >0 irst mismatch is larger or longer
+str.compare(pos, length, str1) == 0
+str.compare(pos, length, str1, pos1, lenght1) == 0
+
 
 // String to Int
 std::string::size_type sz;     // alias of size_t

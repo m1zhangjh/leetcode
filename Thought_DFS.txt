@@ -1,0 +1,42 @@
+200. Number of Islands
+695. Max Area of Island
+	Check the map boundary.
+	use map '0' '1' '2' to store visited.
+
+    void update(vector<vector<int>>& grid, int i, int j, int m, int n, int& area) {
+        if (grid[i][j] == 1) {
+            area++;
+            grid[i][j] = 2;
+            if (i - 1 >= 0) update(grid, i - 1, j, m, n, area);
+            if (j - 1 >= 0) update(grid, i, j - 1, m, n, area);
+            if (i + 1 < m)  update(grid, i + 1, j, m, n, area);
+            if (j + 1 < n)  update(grid, i, j + 1, m, n, area);
+        }
+    }
+	
+323. Number of Connected Components in an Undirected Graph
+	My Solution: hash cur, first
+	
+	        int aGroup = findGroup(hash, a);
+            int bGroup = findGroup(hash, b);
+            
+            if (aGroup == -1) aGroup = a;
+            if (bGroup == -1) bGroup = b;
+            
+            if (aGroup < bGroup) hash[bGroup] = aGroup;
+            if (bGroup < aGroup) hash[aGroup] = bGroup;
+            if (aGroup != bGroup) res--;
+	Solution:
+		connection[n][x];
+		visited[n];
+		dfs: for each connection[][i], if not visited, visited and dfs.
+		
+127. Word Ladder
+	Only one char diff.
+	Store all word in hash; 
+	BFS:
+		Check all possible one char change from 'a' to 'z'
+		in hash;
+		
+	My solution, compare every two words is oneDiff is slow.
+	

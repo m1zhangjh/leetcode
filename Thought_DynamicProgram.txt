@@ -1,10 +1,65 @@
+	
+276. Paint Fence (No 3 consecutive posts have the same color, k colors)
+	Dynamic: last two is same; last two is diff;
+	total[i-1] = same[i-1] + diff[i-1]
+	same[i] = diff[i-1]
+	diff[i] = total[i-1] * (k-1)
+256. Paint House (No adjacent same color, smallest cost)
+		cost0[i] = min(cost1[i-1], cost2[i-1]) + costs[i][0];
+		cost1[i] = min(cost0[i-1], cost2[i-1]) + costs[i][1];
+        cost2[i] = min(cost0[i-1], cost1[i-1]) + costs[i][2];	
+
+300. Longest Increasing Subsequence
+	if i > prev j
+		long[i] = max(long[i], long[j]+1);
+
+53. Maximum Subarray
+	// If previous sum is smaller than 0, reset/break
+	
+62. Unique Paths
+	Initial: 	path[i][0] = 1; path[0][i] = 1;
+	Trans: 		path[i][j] = path[i-1][j] + path[i][j-1];
+	
+198. House Robber
+	Check sz == 1, sz == 2; return
+	sum[i] = max(sum[i-1], sum[i-2] + nums[i]);	// rob preivous or not. two situation.
+213. House Robber II (arranged in a circle)
+	find the max(sum(0...n-2), sum(1...n-1))
+337. House Robber III (binary tree)
+	if (node == NULL) return 0;
+	unordered_map<TreeNode*, int> hash;
+	hash[node] = max(resInclude, resExclude);
+
+139. Word Break
+	s = "leetcode", wordDict = ["leet","code"]
+	DP: match[sz+1]=false; match[0]=true; DP; return match[sz]
+		index is where to start find match
+
+322. Coin Change (coins, amount)
+	DP[amount+1]
+	
+
+
+44. Wildcard Matching
+	'*' Matches any sequence of characters (including the empty sequence).
+	Initial i=0 j=0; (only 1 char match, multi *)
+	char check[i-1][j-1]; 
+	* check[i-1][j] and [i][j-1]
+
+233. Number of Digit One
+	0~9 0~99 0~999 repeat. 
+		repeat value is long
+		Also keep previous value, e^ value
+	Fuck: Instead of reduce integer n, increase divider 1, 10, 100, 1000
+	
+
 HJ16 购物单
 check index is from 0 or 1
 value <= budget, to fully use budget
 
 dp[item][budget];
 
-最长增序列长度
+300. Longest Increasing Subsequence (最长增序列长度)
 for(int i = 0; i < n; i++) {
 	increase[i] = 1;
 	for(int j = 0; j < i; j++) {

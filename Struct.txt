@@ -5,8 +5,16 @@ unordered_map <char, int> hash;
 	
 	for (unordered_map<char, int>::iterator it = hash.begin(); it != hash.end(); it++) {
 		char c = it->first;
+
+	hash.erase(it);
+	hash.erase(key);
+
+map <char, int> blackredtree;
+	brtree.erase(it);
+	brtree.erase(key);
 	
 int sz = sizeof(arr) / sizeof(arr[0]);
+
 	
 vector<int>
 	begin		end
@@ -14,6 +22,7 @@ vector<int>
 				pop_back	(return void)
 				push_back
 	vector<int> vec(n, 10); // all values as 10
+	vector<int> vec{0, 1, 2};
 	vector<vector<int> > vec(n, vector<int>(3,0)); // n * 3 * 0
 list<int>
 	begin		end
@@ -24,12 +33,22 @@ list<int>
 	it1 = mylist.erase (it1);
 	mylist.remove(val);
 	
+	myList.splice(pos, list2)
+	myList.splice(pos, list2, it2pos）
+	myList.splice(pos, list2, it2s, it2e）
+		//splice (the element in list2 is only existed in myList)
+		拼接（cut removed from list2）
+		list2 can be the same as myList
+	myList.splice(myList.begin(), myList, it) // move it to the begin of the list
+	
+	myvector.erase(it);
+	
 queue<int>
 	front		back
 				pop			(return void)
 	push
 	
-stack<int>
+stack<int> / priority_queue<int> (heap, only the largest is kept)
 	top
 	pop						(return void)
 	push
@@ -47,3 +66,25 @@ sort(vec.begin(), vec.begin()+4, cmp);
 bool cmp (int i, int j) {return i < j;}
 
 rand() % 10; // from 0 to 9
+
+
+map:
+	increasing order
+	red-black tree (balanced binary search tree)
+	search/insert/delete: log(n)
+
+unordered_map:
+	no ordering
+	hash table
+	search/insert/delete: O(1) -> O(n)
+	
+sorted vector
+	low = lower_bound (v.begin(), v.end(), 20); // first equal/larger to/than 20
+	up = upper_bound (v.begin(), v.end(), 20);   // first larger than 20
+	int index = low - v.begin();
+
+sort(v.begin(), v.end());
+reverse(v.being(), v.end());
+swap(v[i], v[j]); // swap two element;
+v1.swap(v2); // swap two vector;
+

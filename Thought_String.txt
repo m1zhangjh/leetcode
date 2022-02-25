@@ -19,6 +19,47 @@ while (end != -string::npos) {
 	end = s.find(':', start);
 }
 
+929. Unique Email Addresses
+for(char c : email) {
+    if(c == '+' || c == '@') break;
+    if(c == '.') continue;
+    cleanEmail += c;
+}
+cleanEmail += email.substr(email.find('@'));
+
+str.erase(std::remove(str.begin(), str.end(), '.'), str.end());
+
+139. Word Break
+	s = "leetcode", wordDict = ["leet","code"]
+	DP: match[sz+1]=false; match[0]=true; DP; return match[sz]
+		index is where to start find match
+
+140. Word Break II
+	s = "catsanddog", wordDict = ["cat","cats","and","sand","dog"]
+	recursive function, for (Dict) {RESET pos and ss; // to explore next possible match} 
+		$recursive, for loop, don't change parameter pos value$
+    
+	void nextWord(string s, vector<string>& wordDict, int pos, string ss) {
+        for (int i = 0; i < wordDict.size(); i++) {
+            string curS = ss;
+            int curP = pos;
+            string str = wordDict[i];
+            int sz = str.length();
+            if (s.compare(curP, sz, str) == 0) {
+                curS.append(s, curP, sz);
+                curP += sz;
+                if (curP == s.size()) {
+                    res.push_back(curS);
+                }
+                else {
+                    curS.append(" ");
+                    nextWord(s, wordDict, curP, curS);
+                }
+            }
+        }
+    }
+
+
 NC149 kmp算法
 	substr, consider pattern in substr prefix
 	pattern return position: 
@@ -31,3 +72,30 @@ NC149 kmp算法
 		if not match
 			index = pattern[index - 1];
 	
+	
+3. Longest Substring Without Repeating Characters
+	substring: continue char
+	subsequence: not in continue order
+	Repeat char calculate length. (start, hash(char,pos))
+	Don't forget the end, the last substring.
+	
+49. Group Anagrams
+	An Anagram is a word or phrase formed by rearranging the letters
+	map<string, vector<string>>; key is sorted string
+	
+	
+8. String to Integer (atoi)
+            else if (s[i] >= '0' && s[i] <= '9') {
+                res = res * 10 + s[i] - '0';
+                start = true;
+                if (res > INT_MAX) break;
+            }
+            else {
+                break;
+            }
+        }
+        if (neg) res *= -1;
+        if (res > INT_MAX) res = INT_MAX;
+        if (res < INT_MIN) res = INT_MIN;
+6. Zigzag Conversion
+	Boundary if numRows = 1, 2

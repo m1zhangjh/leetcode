@@ -1,0 +1,79 @@
+Backtracking
+	update
+	recursive
+	un-update
+	
+46. Permutations (Without repeat)
+	1st swap with all jth >= 1st
+	2nd swap with all jth >= 2nd
+	...
+	i = sz - 1, update res;
+	
+    void permutation(int i, vector<int> nums, vector<vector<int>>& res) {
+        int sz = nums.size();
+        if (i == sz) {
+            res.push_back(nums);
+            return;
+        }
+        for (int j = i; j < sz; j++) {
+            swap(nums[i], nums[j]);
+            permutation(i+1, nums, res);
+            swap(nums[i], nums[j]); // backtrack
+        }
+    }
+	
+47. Permutations II (with repeat)
+	Method 1: hash to store all and produce.
+	Method 2: use hash in each rc(pos), only swap diff num
+				pos swap every possible num, 
+				the after will be fine through this swap
+    void permute(int i, vector<int> nums, vector<vector<int>>& res) {
+        if (i == nums.size()) {
+            res.push_back(nums);
+            return;
+        }
+        unordered_map<int, int> hash;
+        for (int j = i; j < nums.size(); j++) {
+            if (hash.find(nums[j]) == hash.end()) {
+                swap(nums[i], nums[j]);
+                permute(i+1, nums, res);
+                swap(nums[i], nums[j]); // backtrack                
+                hash[nums[j]] = 1;  // hash to only swap diff
+            }
+        }
+    }
+
+31. Next Permutation
+	i from n-2 to 0
+	j from n-1 to i-1
+	find the first [i] < [j], swap.
+	then sort/reverse (i+1, end)
+78. Subsets
+		sub(i+1, temp, nums, res);
+        temp.push_back(nums[i]);
+        sub(i+1, temp, nums, res);
+39. Combination Sum
+        nextSum(index + 1, candidates, temp, tempSum, res, target);
+        temp.push_back(candidates[index]);
+        tempSum += candidates[index];
+        nextSum(index, candidates, temp, tempSum, res, target);	
+22. Generate Parentheses
+        if (left == 0 && right == 0) {
+            res.push_back(temp);
+            return;
+        }
+        if (left == 0) {
+            temp.push_back(')');
+            gen(temp, left, --right, res);
+        }
+        else if (left == right) {
+            temp.push_back('(');
+            gen(temp, --left, right, res);
+        }
+        else {
+            temp.push_back('(');
+            gen(temp, --left, right, res);
+            temp.pop_back();			// backtrack
+            temp.push_back(')');
+            gen(temp, ++left, --right, res);            
+        }	
