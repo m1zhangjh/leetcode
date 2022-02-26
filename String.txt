@@ -65,3 +65,4 @@ FLT_MAX, FLT_MIN
 DBL_MAX, DBL_MIN
 
 variable = (condition) ? expressionTrue : expressionFalse;
+(condition) ? expressionTrue : expressionFalse;

@@ -99,3 +99,8 @@ NC149 kmp算法
         if (res < INT_MIN) res = INT_MIN;
 6. Zigzag Conversion
 	Boundary if numRows = 1, 2
+	
+	
+ZJ3 aabaabaa 换m次 的最长连续
+	2 pointers， window, check
+		if ( a or b < m) update result.
