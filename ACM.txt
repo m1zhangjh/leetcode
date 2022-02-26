@@ -1,13 +1,4 @@
 #include <bits/stdc++.h>
-
-#include <iostream>		// std::cout
-#include <string>
-#include <vector>
-#include <math>
-#include <algorithm>    // std::max
-#include <unordered_map>
-
-#include <bits/stdc++.h>
 using namespace std;
  
 int main() {
@@ -46,3 +37,34 @@ struct TreeNode {
 	TreeNode(int x, TreeNode* l， TreeNode* r) : val(x), left(l), right(r) {}
 };
 TreeNode* node = new TreeNode(0);
+
+
+#include <sstream>      // std::stringstream
+string line, str;
+while (getline(cin, line, '\n')) {
+	replace(line.begin(), line.end(), '[', ' ');
+	replace(line.begin(), line.end(), ',', ' ');
+	stringstream ss(line) 
+	while (getline(ss, str, ' ' )) {
+		if (!str.empty()) {
+			int i = stoi(str.c_str());		// atof, atod, stol
+			cout << i << " ";
+		}
+	}
+}
+
+
+    int x = 0;
+    vector<vector<int>> vec;
+    vector<int> v;
+    while(cin >> x){
+        v.push_back(x);
+        if(cin.get() == '\n'){
+            vec.push_back(v);
+            v.clear();
+        }
+        if(cin.peek() == '\n'){
+            vec.push_back(v);
+            break;
+        }
+    }

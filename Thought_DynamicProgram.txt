@@ -98,3 +98,12 @@ for (i = 2...n)
 		}
 	}
 cout << dp[n][m];
+
+
+
+ZJ1 n+1房间:进入i房间，基数次跳pi，偶数次i+1
+DP： step[i] the steps back to the this room;
+	step[i](n, 2); at least 2 times to 1) finish back itself, and 2) go next
+	step[i] = step[pi] + ... + step[i-1];
+对1000000007 (10e9 + 7) 取模, 用long 不用int
+	
