@@ -72,3 +72,29 @@ NC133 链表的奇偶重排
 	if (oddIndex->next == NULL)
 		oddIndex->next = evenHead;
 	Must connect through the last node->next, not the last NULL
+	
+25. Reverse Nodes in k-Group
+	//Take care head and tail in each group
+    void swapNodes(ListNode* pHead, ListNode* head, int k) {
+        ListNode* temp = head;
+        for (int i = 0; i < k; i++) {
+            if (temp != NULL) {
+                temp = temp->next;
+            }
+            else {
+                return;
+            }
+        }
+        temp = head;
+        ListNode* nextTemp = head->next;
+        for (int i = 0; i < k - 1; i++) {
+            ListNode* tempTemp = nextTemp->next;
+            nextTemp->next = temp;
+            temp = nextTemp;
+            nextTemp = tempTemp;
+        }
+        // Take care of head and tail of K group
+        pHead->next = temp;
+        head->next = nextTemp;
+        swapNodes(head, nextTemp, k);
+    }	

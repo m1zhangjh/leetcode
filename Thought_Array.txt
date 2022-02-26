@@ -46,9 +46,9 @@
 	list<vector<int, int>> cache; (key, value; keep in an order)
 	unordered_map<int, list<vector<int, int>>::iterator> key; (used for search)
 	
-	myList.splice(pos, list2)
-	myList.splice(pos, list2, it2pos）
-	myList.splice(pos, list2, it2s, it2e）
+	myList.splice(pos, list2)				// 在pos前 拼接list2		（拼接后list2为空）
+	myList.splice(pos, list2, it2pos）		// 在pos前 拼接list2的pos 一个Node
+	myList.splice(pos, list2, it2s, it2e）	// 在pos前 拼接list2的pos list2 from s to e.
 		//splice (the element in list2 is only existed in myList)
 		拼接（cut removed from list2）
 		list2 can be the same as myList
