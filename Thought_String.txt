@@ -59,6 +59,9 @@ str.erase(std::remove(str.begin(), str.end(), '.'), str.end());
         }
     }
 
+1143. Longest Common Subsequence (two string)
+	DP: if (not match) [i][j] = max([i-1][j], [i][j-1]);
+		if (match) [i][j] = 1 + [i-1][j-1];
 
 NC149 kmp算法
 	substr, consider pattern in substr prefix

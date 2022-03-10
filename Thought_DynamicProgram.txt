@@ -38,6 +38,10 @@
 322. Coin Change (coins, amount)
 	DP[amount+1]
 	
+1143. Longest Common Subsequence (two string)
+	DP: if (not match) [i][j] = max([i-1][j], [i][j-1]);
+		if (match) [i][j] = 1 + [i-1][j-1];
+
 
 
 44. Wildcard Matching
